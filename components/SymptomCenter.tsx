@@ -38,21 +38,21 @@ export const SymptomCenter: React.FC<SymptomCenterProps> = ({ patient, onSave })
 
   return (
     <div className="space-y-6">
-      <header className="flex justify-between items-center">
+      <header className="flex justify-between items-start pt-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Symptom Center</h2>
-          <p className="text-sm text-slate-500">Track and analyze your daily wellness.</p>
+          <h2 className="text-2xl font-black text-slate-800 tracking-tight">Symptom Center</h2>
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Track your daily wellness</p>
         </div>
-        <div className="flex bg-slate-100 p-1 rounded-xl">
+        <div className="flex bg-slate-100 p-1 rounded-xl shrink-0">
            <button 
              onClick={() => setActiveTab('log')}
-             className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === 'log' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500'}`}
+             className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-tighter rounded-lg transition-all ${activeTab === 'log' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-400'}`}
            >
              Log
            </button>
            <button 
              onClick={() => setActiveTab('history')}
-             className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${activeTab === 'history' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-500'}`}
+             className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-tighter rounded-lg transition-all ${activeTab === 'history' ? 'bg-white text-sky-600 shadow-sm' : 'text-slate-400'}`}
            >
              History
            </button>
@@ -93,9 +93,9 @@ export const SymptomCenter: React.FC<SymptomCenterProps> = ({ patient, onSave })
             </div>
 
             <div className="pt-4">
-              <label className="block text-xs font-bold text-slate-400 uppercase mb-2">Notes or specific concerns</label>
+              <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Notes or specific concerns</label>
               <textarea 
-                className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:border-sky-400 transition-all"
+                className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl text-sm focus:outline-none focus:border-sky-400 transition-all font-medium"
                 placeholder="e.g. Neuropathy in fingertips, trouble sleeping..."
                 rows={3}
                 value={log.notes}
@@ -144,7 +144,7 @@ export const SymptomCenter: React.FC<SymptomCenterProps> = ({ patient, onSave })
                         <span className="text-xs font-bold text-slate-700">{s.mood}</span>
                       </div>
                    </div>
-                   {s.notes && <p className="text-xs text-slate-500 italic line-clamp-1">"{s.notes}"</p>}
+                   {s.notes && <p className="text-xs text-slate-500 italic line-clamp-1 font-medium">"{s.notes}"</p>}
                 </div>
                 <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 self-center" />
               </div>

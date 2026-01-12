@@ -64,13 +64,13 @@ const App: React.FC = () => {
       case Tab.Home:
         return (
           <div className="space-y-8 pb-40">
-            <header className="flex justify-between items-center relative">
+            <header className="flex justify-between items-start pt-4 relative">
               <div className="space-y-1">
-                <Logo size={32} src={logoSrc} className="mb-2" />
-                <p className="text-slate-400 text-[9px] font-black uppercase tracking-[0.2em]">Health Dashboard</p>
+                <Logo size={28} src={logoSrc} className="mb-2" />
+                <p className="text-slate-400 text-[8px] font-black uppercase tracking-[0.2em]">Health Dashboard</p>
                 <h1 className="text-2xl font-black text-slate-900 tracking-tight">Welcome, {patient.name}</h1>
               </div>
-              <div className="relative">
+              <div className="relative mt-1">
                 <button 
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
                   className="w-10 h-10 bg-sky-50 rounded-full flex items-center justify-center text-[#5B8DEF] font-black border-2 border-white shadow-lg"
@@ -144,9 +144,9 @@ const App: React.FC = () => {
       case Tab.Record:
         return (
           <div className="space-y-8 pb-32">
-            <header>
+            <header className="pt-4">
               <h2 className="text-3xl font-black text-slate-800 tracking-tight">Medical Record</h2>
-              <p className="text-slate-500 font-medium">Syncing with Epic and MyChart.</p>
+              <p className="text-slate-500 font-medium">Synced with Epic and MyChart.</p>
             </header>
             
             <div className="space-y-4">

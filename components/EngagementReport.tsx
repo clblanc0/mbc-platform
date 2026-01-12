@@ -29,17 +29,17 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
 
   return (
     <div className="flex flex-col h-full bg-slate-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Fixed Header */}
-      <div className="px-6 pt-12 pb-6 bg-white border-b border-slate-100 flex justify-between items-center sticky top-0 z-20">
+      {/* Immersive Blur Header */}
+      <div className="px-6 pt-10 pb-6 bg-white/80 backdrop-blur-md flex justify-between items-center sticky top-0 z-20">
         <div>
           <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
-            <Activity className="w-6 h-6 text-sky-600" />
-            Study Engagement Summary
+            <Activity className="w-5 h-5 text-sky-600" />
+            Study Momentum
           </h2>
         </div>
         <button 
           onClick={onClose}
-          className="p-2 bg-slate-100 rounded-full text-slate-500 hover:bg-slate-200 transition-colors"
+          className="p-2 bg-slate-200/50 rounded-full text-slate-500 hover:bg-slate-200 transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
