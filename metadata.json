@@ -1,0 +1,7 @@
+{
+  "name": "Curanostics",
+  "description": "A specialized health management platform for breast cancer patients, with a focus on Black women. Featuring AI-driven lab interpretation, symptom tracking, and culturally competent resources.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
