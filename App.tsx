@@ -21,7 +21,6 @@ import {
   Pill, 
   LogOut, 
   ChevronRight, 
-  Plus,
   ArrowRight
 } from 'lucide-react';
 
@@ -216,8 +215,8 @@ const App: React.FC = () => {
   );
 
   if (authStage === 'onboarding') return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex justify-center items-center">
-      <main className="w-full max-w-lg h-[100dvh] bg-white shadow-2xl relative overflow-hidden flex flex-col">
+    <div className="min-h-[100dvh] bg-slate-50 text-slate-800 font-sans flex justify-center items-center">
+      <main className="w-full max-w-lg h-[100dvh] bg-white shadow-2xl relative overflow-hidden flex flex-col pt-[env(safe-area-inset-top)]">
         <Onboarding onComplete={(data) => {
           setPatient(prev => ({ ...prev, ...data }));
           setAuthStage('authenticated');
@@ -227,18 +226,18 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex justify-center items-center">
+    <div className="min-h-[100dvh] bg-slate-50 text-slate-800 font-sans flex justify-center items-center">
         <main className="w-full max-w-lg h-[100dvh] bg-white shadow-2xl relative overflow-hidden flex flex-col">
             {showEngagement ? (
                 <EngagementReport patient={patient} onClose={() => setShowEngagement(false)} />
             ) : (
                 <>
-                    <div className="flex-1 overflow-y-auto no-scrollbar pt-2 px-6 scroll-smooth">
+                    <div className="flex-1 overflow-y-auto no-scrollbar pt-[env(safe-area-inset-top,1rem)] px-6 scroll-smooth">
                         {renderContent()}
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-20">
                         <div className="h-24 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
-                        <nav className="bg-white/90 backdrop-blur-md border-t border-slate-100 px-2 pb-8 pt-4 pointer-events-auto shadow-[0_-10px_40px_rgba(0,0,0,0.05)] relative">
+                        <nav className="bg-white/90 backdrop-blur-md border-t border-slate-100 px-2 pt-4 pb-[calc(env(safe-area-inset-bottom,1.5rem)+0.5rem)] pointer-events-auto shadow-[0_-10px_40px_rgba(0,0,0,0.05)] relative">
                             <div className="absolute left-1/2 -translate-x-1/2 -top-8">
                                 <button 
                                     onClick={() => setShowEngagement(true)}
