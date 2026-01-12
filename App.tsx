@@ -21,7 +21,6 @@ import {
   Pill, 
   LogOut, 
   ChevronRight, 
-  ShieldCheck,
   Plus,
   ArrowRight
 } from 'lucide-react';
@@ -64,7 +63,7 @@ const App: React.FC = () => {
       case Tab.Home:
         return (
           <div className="space-y-8 pb-40">
-            <header className="flex justify-between items-start pt-4 relative">
+            <header className="flex justify-between items-start pt-2 relative">
               <div className="space-y-1">
                 <Logo size={28} src={logoSrc} className="mb-2" />
                 <p className="text-slate-400 text-[8px] font-black uppercase tracking-[0.2em]">Health Dashboard</p>
@@ -91,7 +90,6 @@ const App: React.FC = () => {
               </div>
             </header>
 
-            {/* Core Stats */}
             <WearableMetrics 
               data={patient.wearableData} 
               selectedMetric={selectedMetric} 
@@ -102,7 +100,6 @@ const App: React.FC = () => {
 
             <ClinicianNote metricType={selectedMetric} />
 
-            {/* Patient Snapshot: Meds & Diagnoses */}
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Medical Snapshot</h2>
@@ -111,7 +108,6 @@ const App: React.FC = () => {
               <HealthPassport patient={patient} />
             </div>
 
-            {/* Simplified Daily Tracker */}
             <div 
               onClick={() => setActiveTab(Tab.Symptoms)}
               className="bg-sky-600 p-6 rounded-2xl shadow-xl shadow-sky-600/20 flex items-center justify-between cursor-pointer hover:bg-sky-700 transition-all active:scale-[0.98] group"
@@ -144,7 +140,7 @@ const App: React.FC = () => {
       case Tab.Record:
         return (
           <div className="space-y-8 pb-32">
-            <header className="pt-4">
+            <header className="pt-2">
               <h2 className="text-3xl font-black text-slate-800 tracking-tight">Medical Record</h2>
               <p className="text-slate-500 font-medium">Synced with Epic and MyChart.</p>
             </header>
@@ -237,7 +233,7 @@ const App: React.FC = () => {
                 <EngagementReport patient={patient} onClose={() => setShowEngagement(false)} />
             ) : (
                 <>
-                    <div className="flex-1 overflow-y-auto no-scrollbar p-6 scroll-smooth">
+                    <div className="flex-1 overflow-y-auto no-scrollbar pt-2 px-6 scroll-smooth">
                         {renderContent()}
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-20">

@@ -29,8 +29,8 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
 
   return (
     <div className="flex flex-col h-full bg-slate-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Immersive Blur Header */}
-      <div className="px-6 pt-10 pb-6 bg-white/80 backdrop-blur-md flex justify-between items-center sticky top-0 z-20">
+      {/* Immersive Blur Header with optimized padding */}
+      <div className="px-6 pt-6 pb-4 bg-white/80 backdrop-blur-md flex justify-between items-center sticky top-0 z-20">
         <div>
           <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
             <Activity className="w-5 h-5 text-sky-600" />
