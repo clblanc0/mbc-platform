@@ -63,7 +63,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                         <input 
                             type="text" 
                             className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#5B8DEF] focus:bg-white transition-all text-slate-900 font-medium shadow-sm"
-                            placeholder="e.g. Maya Thompson"
+                            placeholder="Enter your full name"
                             value={formData.name}
                             onChange={e => setFormData({...formData, name: e.target.value})}
                         />
@@ -73,7 +73,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                         <input 
                             type="email" 
                             className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:border-[#5B8DEF] focus:bg-white transition-all text-slate-900 font-medium shadow-sm"
-                            placeholder="maya@example.com"
+                            placeholder="your@email.com"
                             value={formData.email}
                             onChange={e => setFormData({...formData, email: e.target.value})}
                         />

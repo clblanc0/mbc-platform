@@ -19,15 +19,18 @@ interface EngagementReportProps {
 }
 
 export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onClose }) => {
+  // Logic to simulate clinical trial metrics based on mock data
   const symptomLogsCount = patient.symptoms.length;
+  
+  // Mock study timeline
   const studyDay = 45;
   const totalStudyDays = 90;
   const progressPercent = (studyDay / totalStudyDays) * 100;
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-slate-50 animate-in fade-in slide-in-from-bottom-4 duration-500 overflow-hidden">
-      {/* Immersive Blur Header with Safe Area Support */}
-      <div className="px-6 pt-[calc(env(safe-area-inset-top,1rem)+1rem)] pb-4 bg-white/80 backdrop-blur-md flex justify-between items-center sticky top-0 z-20 border-b border-slate-100/50">
+    <div className="flex flex-col h-full bg-slate-50 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {/* Immersive Blur Header with optimized padding */}
+      <div className="px-6 pt-6 pb-4 bg-white/80 backdrop-blur-md flex justify-between items-center sticky top-0 z-20">
         <div>
           <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
             <Activity className="w-5 h-5 text-sky-600" />
@@ -42,9 +45,9 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 no-scrollbar pb-[calc(env(safe-area-inset-bottom,1rem)+6rem)]">
+      <div className="flex-1 overflow-y-auto p-5 space-y-6 no-scrollbar pb-32">
         
-        {/* Adherence */}
+        {/* 1. Protocol Adherence Summary */}
         <section className="space-y-3">
           <div className="flex items-center gap-2 px-1">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -69,7 +72,7 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
           </div>
         </section>
 
-        {/* Timeline */}
+        {/* 2. Study Timeline & Milestone Tracking */}
         <section className="space-y-3">
           <div className="flex items-center gap-2 px-1">
             <Calendar className="w-4 h-4 text-indigo-600" />
@@ -99,7 +102,7 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
           </div>
         </section>
 
-        {/* Technical */}
+        {/* 3. Technical & Data Integrity Metrics */}
         <section className="space-y-3">
           <div className="flex items-center gap-2 px-1">
             <ShieldAlert className="w-4 h-4 text-amber-600" />
@@ -132,13 +135,14 @@ export const EngagementReport: React.FC<EngagementReportProps> = ({ patient, onC
                 </div>
                 <ChevronRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
              </div>
+             <p className="text-[10px] text-slate-400 italic text-center">Last successful data upload: 10 minutes ago</p>
           </div>
         </section>
 
       </div>
 
-      {/* Action Bar with Safe Area Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 pt-6 pb-[calc(env(safe-area-inset-bottom,1.5rem)+1rem)] bg-white border-t border-slate-100 z-30">
+      {/* Action Bar */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100 z-30">
         <button className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-slate-900/10 active:scale-95 transition-all">
            Share Study Report with Care Team
         </button>
