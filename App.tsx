@@ -26,7 +26,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-enum Tab { Home, Symptoms, VisitPrep, Records }
+enum Tab { Home, Symptoms, VisitPrep, Record }
 
 const App: React.FC = () => {
   const [authStage, setAuthStage] = useState<'login' | 'onboarding' | 'authenticated'>('login');
@@ -106,7 +106,7 @@ const App: React.FC = () => {
             <div className="space-y-3">
               <div className="flex justify-between items-center px-1">
                 <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">Medical Snapshot</h2>
-                <button onClick={() => setActiveTab(Tab.Records)} className="text-[10px] font-black text-sky-600 uppercase">View All</button>
+                <button onClick={() => setActiveTab(Tab.Record)} className="text-[10px] font-black text-sky-600 uppercase">View All</button>
               </div>
               <HealthPassport patient={patient} />
             </div>
@@ -141,11 +141,11 @@ const App: React.FC = () => {
           </div>
         );
 
-      case Tab.Records:
+      case Tab.Record:
         return (
           <div className="space-y-8 pb-32">
             <header>
-              <h2 className="text-3xl font-black text-slate-800 tracking-tight">Medical Records</h2>
+              <h2 className="text-3xl font-black text-slate-800 tracking-tight">Medical Record</h2>
               <p className="text-slate-500 font-medium">Syncing with Epic and MyChart.</p>
             </header>
             
@@ -265,9 +265,9 @@ const App: React.FC = () => {
                                     <ClipboardList size={22} strokeWidth={activeTab === Tab.VisitPrep ? 2.5 : 2} />
                                     <span className="text-[10px] font-black uppercase tracking-tighter">Prep</span>
                                 </button>
-                                <button onClick={() => setActiveTab(Tab.Records)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.Records ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
-                                    <FileText size={22} strokeWidth={activeTab === Tab.Records ? 2.5 : 2} />
-                                    <span className="text-[10px] font-black uppercase tracking-tighter">Records</span>
+                                <button onClick={() => setActiveTab(Tab.Record)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.Record ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
+                                    <FileText size={22} strokeWidth={activeTab === Tab.Record ? 2.5 : 2} />
+                                    <span className="text-[10px] font-black uppercase tracking-tighter">Record</span>
                                 </button>
                             </div>
                         </nav>
