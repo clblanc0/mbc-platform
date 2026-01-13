@@ -1,39 +1,30 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Activity } from 'lucide-react';
 import { APP_CONFIG } from '../constants';
 
 interface LogoProps {
-  src?: string;
   size?: number;
   className?: string;
 }
 
 /**
- * A senior-engineered Logo component that prioritizes user identity.
- * It automatically checks the global APP_CONFIG for a custom logoUrl.
+ * A senior-engineered Logo component that strictly adheres to system branding.
  */
 export const Logo: React.FC<LogoProps> = ({ 
-  src,
   size = 48, 
   className = "" 
 }) => {
   const [hasError, setHasError] = useState(false);
   
-  // Priority: 1. Manual Prop -> 2. App Config -> 3. Fallback Icon
-  const logoSource = src || APP_CONFIG.logoUrl;
-
-  // Reset error state if the source changes
-  useEffect(() => {
-    setHasError(false);
-  }, [logoSource]);
+  const logoSource = APP_CONFIG.logoUrl;
 
   if (hasError || !logoSource) {
     return (
       <div className={`flex items-center gap-3 ${className}`}>
         <div 
           style={{ width: size, height: size }}
-          className="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-sky-500/20 shrink-0"
+          className="bg-gradient-to-br from-sky-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shrink-0"
         >
           <Activity size={size * 0.6} strokeWidth={2.5} />
         </div>

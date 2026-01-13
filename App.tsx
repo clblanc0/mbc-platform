@@ -9,7 +9,6 @@ import { WearableMetrics, WearableChart, ClinicianNote, MetricType } from './com
 import { Onboarding } from './components/Onboarding';
 import { Logo } from './components/Logo';
 import { HealthPassport } from './components/HealthPassport';
-import { BrandingModal } from './components/BrandingModal';
 import { summarizeLabResult } from './services/geminiService';
 import { PatientProfile, LabResult, SymptomLog, Status } from './types';
 import { 
@@ -22,10 +21,7 @@ import {
   Pill, 
   LogOut, 
   ChevronRight, 
-  Plus,
   ArrowRight,
-  Settings,
-  HeartPulse,
   ShieldCheck,
   Zap
 } from 'lucide-react';
@@ -40,22 +36,7 @@ const App: React.FC = () => {
   const [labSummary, setLabSummary] = useState<string | null>(null);
   const [isLoadingLab, setIsLoadingLab] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isBrandingOpen, setIsBrandingOpen] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>('heartRate');
-  
-  const [logoSrc, setLogoSrc] = useState<string>(() => {
-    return localStorage.getItem('app_logo_src') || '';
-  });
-
-  const handleSaveLogo = (newSrc: string) => {
-    setLogoSrc(newSrc);
-    if (newSrc) {
-      localStorage.setItem('app_logo_src', newSrc);
-    } else {
-      localStorage.removeItem('app_logo_src');
-    }
-    setIsBrandingOpen(false);
-  };
 
   const handleSaveSymptom = (log: SymptomLog) => {
     setPatient(prev => ({ ...prev, symptoms: [...prev.symptoms, log] }));
@@ -83,27 +64,19 @@ const App: React.FC = () => {
           <div className="space-y-8 pb-40">
             <header className="flex justify-between items-start pt-2 relative">
               <div className="space-y-1">
-                <Logo size={32} src={logoSrc} className="mb-2" />
-                <p className="text-slate-400 text-[8px] font-black uppercase tracking-[0.2em]">Health Dashboard</p>
-                <h1 className="text-2xl font-black text-slate-900 tracking-tight">Hi, {patient.name.split(' ')[0]}</h1>
+                <Logo size={32} className="mb-2" />
+                <p className="text-slate-400 text-[8px] font-black uppercase tracking-[0.2em]">Patient Portal</p>
+                <h1 className="text-2xl font-black text-slate-900 tracking-tight">Hi, Sarah</h1>
               </div>
               <div className="relative mt-1">
                 <button 
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="w-10 h-10 bg-sky-50 rounded-full flex items-center justify-center text-[#5B8DEF] font-black border-2 border-white shadow-lg"
+                  className="w-10 h-10 bg-sky-50 rounded-full flex items-center justify-center text-[#5B8DEF] font-black border-2 border-white shadow-lg overflow-hidden"
                 >
-                  {patient.name.charAt(0)}
+                  <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop" alt="Sarah" className="w-full h-full object-cover" />
                 </button>
                 {isProfileOpen && (
-                  <div className="absolute top-12 right-0 w-52 bg-white rounded-2xl shadow-2xl border border-slate-100 z-50 py-2 animate-in fade-in zoom-in-95 duration-200">
-                    <button 
-                      onClick={() => { setIsBrandingOpen(true); setIsProfileOpen(false); }}
-                      className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
-                    >
-                      <Settings size={16} className="text-slate-400" />
-                      App Branding
-                    </button>
-                    <div className="h-px bg-slate-50 my-1 mx-2" />
+                  <div className="absolute top-12 right-0 w-48 bg-white rounded-2xl shadow-2xl border border-slate-100 z-50 py-2 animate-in fade-in zoom-in-95 duration-200">
                     <button 
                       onClick={handleSignOut}
                       className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-rose-600 hover:bg-rose-50 transition-colors"
@@ -116,7 +89,7 @@ const App: React.FC = () => {
               </div>
             </header>
 
-            {/* Health at a Glance Triad */}
+            {/* Health Markers */}
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-1">
                 <div className="p-2 bg-sky-50 rounded-lg text-sky-600">
@@ -130,7 +103,7 @@ const App: React.FC = () => {
                   <ShieldCheck size={16} />
                 </div>
                 <span className="text-[8px] font-black text-slate-400 uppercase tracking-tighter">Diagnoses</span>
-                <span className="text-sm font-black text-slate-800">{patient.diagnoses.filter(d => d.status === Status.Active).length} Primary</span>
+                <span className="text-sm font-black text-slate-800">{patient.diagnoses.filter(d => d.status === Status.Active).length} Main</span>
               </div>
               <div className="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center space-y-1">
                 <div className="p-2 bg-rose-50 rounded-lg text-rose-600">
@@ -141,7 +114,6 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Wearable Insights Section - Organized with Tracker as a Bridge */}
             <div className="space-y-6">
               <WearableMetrics 
                 data={patient.wearableData} 
@@ -149,14 +121,13 @@ const App: React.FC = () => {
                 onSelectMetric={setSelectedMetric} 
               />
 
-              {/* Daily Symptom Tracker - Reordered to be below Wearable Metrics but above graphs */}
               <div 
                 onClick={() => setActiveTab(Tab.Symptoms)}
-                className="bg-sky-600 p-6 rounded-2xl shadow-xl shadow-sky-600/20 flex items-center justify-between cursor-pointer hover:bg-sky-700 transition-all active:scale-[0.98] group mx-1"
+                className="bg-sky-600 p-6 rounded-[24px] shadow-xl shadow-sky-600/20 flex items-center justify-between cursor-pointer hover:bg-sky-700 transition-all active:scale-[0.98] group mx-1"
               >
-                <div className="space-y-1">
-                    <h3 className="font-black text-white text-lg">Daily Symptom Tracker</h3>
-                    <p className="text-xs text-sky-100 font-medium">Log how you feel to track recovery.</p>
+                <div className="space-y-1 text-left">
+                    <h3 className="font-black text-white text-lg">Daily Tracker</h3>
+                    <p className="text-xs text-sky-100 font-medium">Log symptoms to track recovery trends.</p>
                 </div>
                 <div className="bg-white/20 p-3 rounded-xl text-white group-hover:translate-x-1 transition-transform">
                     <ArrowRight size={20} strokeWidth={3} />
@@ -197,12 +168,12 @@ const App: React.FC = () => {
         return (
           <div className="space-y-8 pb-32">
             <header className="pt-2">
-              <h2 className="text-3xl font-black text-slate-800 tracking-tight">Medical Record</h2>
-              <p className="text-slate-500 font-medium">Synced with Epic and MyChart.</p>
+              <h2 className="text-3xl font-black text-slate-800 tracking-tight">Records</h2>
+              <p className="text-slate-500 font-medium">Verified medical documentation.</p>
             </header>
             
             <div className="space-y-4">
-              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Recent Pathology</h3>
+              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Recent Labs</h3>
               {patient.labs.map(lab => (
                 <div key={lab.id} className="bg-white p-6 rounded-[32px] shadow-sm border border-slate-100 animate-in slide-in-from-bottom-4">
                   <div className="flex justify-between items-start mb-4">
@@ -236,9 +207,7 @@ const App: React.FC = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="flex justify-between items-center px-1">
-                <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Medications</h3>
-              </div>
+              <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Active Medications</h3>
               <div className="grid grid-cols-1 gap-3">
                 {patient.medications.filter(m => m.status === Status.Active).map(med => (
                   <div key={med.id} className="flex justify-between items-center p-5 bg-white rounded-3xl border border-slate-100 shadow-sm hover:border-sky-100 transition-all cursor-pointer group">
@@ -267,7 +236,6 @@ const App: React.FC = () => {
     <Login 
       onLogin={() => setAuthStage('authenticated')} 
       onCreateAccount={() => setAuthStage('onboarding')} 
-      logoSrc={logoSrc}
     />
   );
 
@@ -292,13 +260,6 @@ const App: React.FC = () => {
                     <div className="flex-1 overflow-y-auto no-scrollbar pt-2 px-6 scroll-smooth">
                         {renderContent()}
                     </div>
-                    {isBrandingOpen && (
-                      <BrandingModal 
-                        currentLogo={logoSrc} 
-                        onClose={() => setIsBrandingOpen(false)} 
-                        onSave={handleSaveLogo} 
-                      />
-                    )}
                     <div className="absolute bottom-0 left-0 right-0 pointer-events-none z-20">
                         <div className="h-24 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
                         <nav className="bg-white/90 backdrop-blur-md border-t border-slate-100 px-2 pb-8 pt-4 pointer-events-auto shadow-[0_-10px_40px_rgba(0,0,0,0.05)] relative">
@@ -313,20 +274,20 @@ const App: React.FC = () => {
                             <div className="flex justify-around items-end">
                                 <button onClick={() => setActiveTab(Tab.Home)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.Home ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
                                     <LayoutDashboard size={22} strokeWidth={activeTab === Tab.Home ? 2.5 : 2} />
-                                    <span className="text-[10px] font-black uppercase tracking-tighter">Home</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-center">Home</span>
                                 </button>
                                 <button onClick={() => setActiveTab(Tab.Symptoms)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.Symptoms ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
                                     <Activity size={22} strokeWidth={activeTab === Tab.Symptoms ? 2.5 : 2} />
-                                    <span className="text-[10px] font-black uppercase tracking-tighter">Track</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-center">Track</span>
                                 </button>
                                 <div className="w-16"></div>
                                 <button onClick={() => setActiveTab(Tab.VisitPrep)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.VisitPrep ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
                                     <ClipboardList size={22} strokeWidth={activeTab === Tab.VisitPrep ? 2.5 : 2} />
-                                    <span className="text-[10px] font-black uppercase tracking-tighter">Prep</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-center">Prep</span>
                                 </button>
                                 <button onClick={() => setActiveTab(Tab.Record)} className={`flex flex-col items-center gap-1.5 transition-all w-16 ${activeTab === Tab.Record ? 'text-[#5B8DEF] scale-105' : 'text-slate-400'}`}>
                                     <FileText size={22} strokeWidth={activeTab === Tab.Record ? 2.5 : 2} />
-                                    <span className="text-[10px] font-black uppercase tracking-tighter">Record</span>
+                                    <span className="text-[10px] font-black uppercase tracking-tighter text-center">Record</span>
                                 </button>
                             </div>
                         </nav>
